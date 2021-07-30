@@ -1,0 +1,11 @@
+{
+  "name": "api_rest",
+  "version": "1.0.0",
+  "description": "JSON SERVER",
+  "main": "main.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Anthony Cedeño <github: anthony-jcb>",
+  "license": "ISC"
+}
