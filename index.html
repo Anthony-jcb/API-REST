@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API & AJAX</title>
+  </head>
+  <body>
+    <h1>ASYNC JS & API REST CRUD</h1>
+    <section class="crud">
+      <article>
+        <h2 class="crud_title">Add Car</h2>
+        <form class="crud_form">
+          <input type="text" name="model" placeholder="Insert name" required />
+          <br />
+          <input type="text" name="cost" placeholder="Insert cost" required />
+          <br />
+          <input type="submit" value="Add" />
+        </form>
+      </article>
+      <article>
+        <h2>CARS</h2>
+        <table class="crud_table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Cost</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </article>
+    </section>
+    <template class="crud_template">
+      <tr>
+        <td class="model"></td>
+        <td class="cost"></td>
+        <td>
+          <button class="edit"></button>
+          <button class="delete"></button>
+        </td>
+      </tr>
+    </template>
+  </body>
+</html>
