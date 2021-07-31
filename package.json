@@ -7,8 +7,5 @@
     "test": "test"
   },
   "author": "Anthony Cedeño <github: anthony-jcb>",
-  "license": "ISC",
-  "dependencies": {
-    "json-server": "^0.16.3"
-  }
+  "license": "ISC"
 }
