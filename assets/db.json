@@ -1,0 +1,48 @@
+{
+  "porsche": [
+    {
+      "id": 1,
+      "name": "Porsche Cayman S",
+      "cost": 60000
+    },
+    {
+      "id": 2,
+      "model": "911 Carrera S",
+      "cost": 75000
+    },
+    {
+      "id": 3,
+      "model": "911 Turbo S",
+      "cost": 105000
+    },
+    {
+      "id": 4,
+      "model": "Carrera GT",
+      "cost": 280000
+    }
+  ],
+  "lamborghini": [
+    {
+      "id": 1,
+      "model": "Gallardo",
+      "cost": 120000
+    },
+    {
+      "id": 2,
+      "model": "Murcielago",
+      "cost": 265000
+    }
+  ],
+  "mazda": [
+    {
+      "id": 1,
+      "model": "RX-8",
+      "cost": 32000
+    },
+    {
+      "id": 2,
+      "model": "RX-7",
+      "cost": 31000
+    }
+  ]
+}
