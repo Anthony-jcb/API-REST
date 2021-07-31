@@ -19,6 +19,11 @@
       "id": 4,
       "model": "Carrera GT",
       "cost": 280000
+    },
+    {
+      "model": "Cayman Rs",
+      "cost": "1255023",
+      "id": 5
     }
   ],
   "lamborghini": [
@@ -31,6 +36,16 @@
       "id": 2,
       "model": "Murcielago",
       "cost": 265000
+    },
+    {
+      "model": "Sexto Elemento",
+      "cost": 125000,
+      "id": 3
+    },
+    {
+      "model": "Sextoooo",
+      "cost": 125000,
+      "id": 4
     }
   ],
   "mazda": [

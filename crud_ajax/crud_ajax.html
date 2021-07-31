@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./crud_ajax.css" />
+    <title>API & AJAX</title>
+  </head>
+  <body>
+    <div id="container_title">
+      <span id="title">ASYNC JS & API REST CRUD</span>
+    </div>
+    <section class="crud">
+      <article class="crud_article1">
+        <h2 class="crud_title">Add a Porsche</h2>
+        <form class="crud_form">
+          <input type="text" name="model" placeholder="Insert model" required />
+          <br />
+          <input type="text" name="cost" placeholder="Insert cost" required />
+          <br />
+          <input type="submit" value="Add" />
+          <br />
+          <input type="hidden" />
+        </form>
+      </article>
+      <article>
+        <h2>CARS</h2>
+        <table class="crud_table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Cost</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </article>
+    </section>
+    <template id="crud_template">
+      <tr>
+        <td class="model"></td>
+        <td class="cost"></td>
+        <td>
+          <button class="edit"></button>
+          <button class="delete"></button>
+        </td>
+      </tr>
+    </template>
+    <script>
+      const D = document,
+        $table = D.querySelector(".crud_table"),
+        $form = D.querySelector(".crud_form"),
+        $title = D.querySelector(".crud_title"),
+        $template = D.getElementById("crud_template").content,
+        $fragment = document.createDocumentFragment();
+
+      // this function capitalize each word.
+      String.prototype.capitalize = function () {
+        let CapitalizedWords = [];
+        this.split(" ").forEach((element) => {
+          CapitalizedWords.push(
+            element[0].toUpperCase() + element.slice(1, element.length)
+          );
+        });
+        return CapitalizedWords.join(" ");
+      };
+
+      // this function do a post in the API.
+      function postCars(model, cost) {
+        const xhr = new XMLHttpRequest(),
+          data = JSON.stringify({
+            model: model.capitalize(),
+            cost,
+          });
+
+        xhr.open("POST", "http://localhost:3000/porsche");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(data);
+      }
+
+      $form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        postCars($form.model.value, $form.cost.value);
+      });
+    </script>
+  </body>
+</html>

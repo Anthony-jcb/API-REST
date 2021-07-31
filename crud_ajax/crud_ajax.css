@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+}
+
+#container_title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.crud {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
