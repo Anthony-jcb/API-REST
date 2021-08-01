@@ -19,3 +19,12 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.crud_table {
+  width: 80vw;
+  text-align: left;
+}
+
+.crud_table th, td {
+  padding: 15px;
+}

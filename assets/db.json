@@ -2,7 +2,7 @@
   "porsche": [
     {
       "id": 1,
-      "name": "Porsche Cayman S",
+      "model": "Cayman S",
       "cost": 60000
     },
     {

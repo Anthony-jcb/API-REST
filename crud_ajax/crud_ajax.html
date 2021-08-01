@@ -25,7 +25,6 @@
         </form>
       </article>
       <article>
-        <h2>CARS</h2>
         <table class="crud_table">
           <thead>
             <tr>
@@ -50,7 +49,7 @@
     </template>
     <script>
       const D = document,
-        $table = D.querySelector(".crud_table"),
+        $table = D.querySelector(".crud_table tbody"),
         $form = D.querySelector(".crud_form"),
         $title = D.querySelector(".crud_title"),
         $template = D.getElementById("crud_template").content,
@@ -67,6 +66,30 @@
         return CapitalizedWords.join(" ");
       };
 
+      function getCars() {
+        const xhr = new XMLHttpRequest();
+        xhr.addEventListener("readystatechange", () => {
+          if (xhr.readyState != 4) return;
+          if (xhr.status >= 200 && xhr.status < 300) {
+            const cars = JSON.parse(xhr.responseText);
+            cars.forEach((car) => {
+              $template.querySelector(".model").textContent = car.model;
+              $template.querySelector(".cost").textContent = car.cost;
+
+              let $clone = D.importNode($template, true);
+              $fragment.appendChild($clone);
+            });
+
+          $table.appendChild($fragment);
+          } else {
+            let message = xhr.statusText || "Ocurrió un error";
+            console.error(`Error ${xhr.status} : ${message}`);
+          }
+        });
+
+        xhr.open("GET", "http://localhost:3000/porsche");
+        xhr.send();
+      }
       // this function do a post in the API.
       function postCars(model, cost) {
         const xhr = new XMLHttpRequest(),
@@ -79,6 +102,8 @@
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(data);
       }
+
+      D.addEventListener("DOMContentLoaded", getCars);
 
       $form.addEventListener("submit", (e) => {
         e.preventDefault();
