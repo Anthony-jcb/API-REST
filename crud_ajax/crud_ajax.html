@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./crud_ajax.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined"
+      rel="stylesheet">
     <title>API & AJAX</title>
   </head>
   <body>
@@ -12,7 +14,7 @@
       <span id="title">ASYNC JS & API REST CRUD</span>
     </div>
     <section class="crud">
-      <article class="crud_article1">
+      <article>
         <h2 class="crud_title">Add a Porsche</h2>
         <form class="crud_form">
           <input type="text" name="model" placeholder="Insert model" required />
@@ -42,8 +44,12 @@
         <td class="model"></td>
         <td class="cost"></td>
         <td>
-          <button class="edit"></button>
-          <button class="delete"></button>
+          <button class="edit">
+            <span class="material-icons-outlined"> edit </span>
+          </button>
+          <button class="delete">
+            <span class="material-icons-outlined"> close </span>
+          </button>
         </td>
       </tr>
     </template>
@@ -72,15 +78,15 @@
           if (xhr.readyState != 4) return;
           if (xhr.status >= 200 && xhr.status < 300) {
             const cars = JSON.parse(xhr.responseText);
+
             cars.forEach((car) => {
               $template.querySelector(".model").textContent = car.model;
               $template.querySelector(".cost").textContent = car.cost;
-
               let $clone = D.importNode($template, true);
               $fragment.appendChild($clone);
             });
 
-          $table.appendChild($fragment);
+            $table.appendChild($fragment);
           } else {
             let message = xhr.statusText || "Ocurrió un error";
             console.error(`Error ${xhr.status} : ${message}`);
