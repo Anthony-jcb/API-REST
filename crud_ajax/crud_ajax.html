@@ -85,6 +85,7 @@
               $template.querySelector(".model").textContent = car.model;
               $template.querySelector(".cost").textContent = car.cost;
               $template.querySelector(".edit").value = car.id;
+              $template.querySelector(".delete").value = car.id;
               let $clone = D.importNode($template, true);
               $fragment.appendChild($clone);
             });
@@ -114,7 +115,7 @@
 
       function putCar({ id, model, cost }) {
         const xhr = new XMLHttpRequest(),
-          data = JSON.stringify({id, model, cost});
+          data = JSON.stringify({ id, model, cost });
 
         xhr.open("PUT", `http://localhost:3000/porsche/${id}`);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -135,6 +136,22 @@
         });
       }
 
+      function deleteCar({ id }) {
+        const xhr = new XMLHttpRequest();
+        console.log(id);
+        xhr.open("DELETE", `http://localhost:3000/porsche/${id}`);
+        xhr.send();
+      }
+
+      function deleteCarButton() {
+        D.addEventListener("click", (e) => {
+          if (e.target.matches(".delete") || e.target.matches(".delete *")) {
+            let data = { id: e.target.value || e.target.parentElement.value };
+            deleteCar(data);
+          }
+        });
+      }
+
       $form.addEventListener("submit", (e) => {
         e.preventDefault();
         postCars($form.model.value, $form.cost.value);
@@ -143,6 +160,7 @@
       D.addEventListener("DOMContentLoaded", () => {
         getCars();
         editCarButton();
+        deleteCarButton();
       });
     </script>
   </body>
