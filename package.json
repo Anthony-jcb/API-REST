@@ -7,5 +7,8 @@
     "api": "json-server --watch ./assets/db.json"
   },
   "author": "Anthony Cedeño <github: anthony-jcb>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^27.0.6"
+  }
 }
