@@ -4,7 +4,8 @@
   "description": "JSON SERVER",
   "main": "main.js",
   "scripts": {
-    "api": "json-server --watch ./assets/db.json"
+    "api": "json-server --watch ./assets/db.json",
+    "test": "jest"
   },
   "author": "Anthony Cedeño <github: anthony-jcb>",
   "license": "ISC",
