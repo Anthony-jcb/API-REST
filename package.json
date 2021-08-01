@@ -8,7 +8,7 @@
   },
   "author": "Anthony Cedeño <github: anthony-jcb>",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "jest": "^27.0.6"
   }
 }
