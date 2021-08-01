@@ -5,8 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./crud_ajax.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined"
-      rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined"
+      rel="stylesheet"
+    />
     <title>API & AJAX</title>
   </head>
   <body>
@@ -82,6 +84,7 @@
             cars.forEach((car) => {
               $template.querySelector(".model").textContent = car.model;
               $template.querySelector(".cost").textContent = car.cost;
+              $template.querySelector(".edit").value = car.id;
               let $clone = D.importNode($template, true);
               $fragment.appendChild($clone);
             });
@@ -109,11 +112,37 @@
         xhr.send(data);
       }
 
-      D.addEventListener("DOMContentLoaded", getCars);
+      function putCar({ id, model, cost }) {
+        const xhr = new XMLHttpRequest(),
+          data = JSON.stringify({id, model, cost});
+
+        xhr.open("PUT", `http://localhost:3000/porsche/${id}`);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(data);
+      }
+
+      function editCarButton() {
+        let data;
+        D.addEventListener("click", (e) => {
+          if (e.target.matches(".edit") || e.target.matches(".edit *")) {
+            let data = {
+              id: e.target.value || e.target.parentElement.value,
+              model: prompt("Escribe el modelo: "),
+              cost: prompt("Escribe el costo: "),
+            };
+            putCar(data);
+          }
+        });
+      }
 
       $form.addEventListener("submit", (e) => {
         e.preventDefault();
         postCars($form.model.value, $form.cost.value);
+      });
+
+      D.addEventListener("DOMContentLoaded", () => {
+        getCars();
+        editCarButton();
       });
     </script>
   </body>
