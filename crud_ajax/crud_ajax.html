@@ -63,54 +63,65 @@
         $template = D.getElementById("crud_template").content,
         $fragment = document.createDocumentFragment();
 
-      // this function capitalize each word.
-      String.prototype.capitalize = function () {
-        let CapitalizedWords = [];
-        this.split(" ").forEach((element) => {
-          CapitalizedWords.push(
-            element[0].toUpperCase() + element.slice(1, element.length)
-          );
-        });
-        return CapitalizedWords.join(" ");
-      };
+      const ajax = (options) => {
+        let { method, url, success, error, data } = options;
 
-      function getCars() {
         const xhr = new XMLHttpRequest();
+
         xhr.addEventListener("readystatechange", () => {
-          if (xhr.readyState != 4) return;
+          if (xhr.readyState !== 4) return;
           if (xhr.status >= 200 && xhr.status < 300) {
-            const cars = JSON.parse(xhr.responseText);
-
-            cars.forEach((car) => {
-              $template.querySelector(".model").textContent = car.model;
-              $template.querySelector(".cost").textContent = car.cost;
-              $template.querySelector(".edit").value = car.id;
-              $template.querySelector(".delete").value = car.id;
-              let $clone = D.importNode($template, true);
-              $fragment.appendChild($clone);
-            });
-
-            $table.appendChild($fragment);
+            let json = JSON.parse(xhr.responseText);
+            success(json);
           } else {
             let message = xhr.statusText || "Ocurrió un error";
-            console.error(`Error ${xhr.status} : ${message}`);
+            error(`Error ${xhr.status} : ${message}`);
           }
         });
 
-        xhr.open("GET", "http://localhost:3000/porsche");
-        xhr.send();
-      }
-      // this function do a post in the API.
-      function postCars(model, cost) {
-        const xhr = new XMLHttpRequest(),
-          data = JSON.stringify({
-            model: model.capitalize(),
-            cost,
-          });
-
-        xhr.open("POST", "http://localhost:3000/porsche");
+        xhr.open(method || "GET", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(data);
+        xhr.send(JSON.stringify(data));
+      };
+
+      function getCars() {
+        ajax({
+          url: "http://localhost:3000/porsche",
+          success: (cars) => {
+            cars.forEach((car) => {
+              $template.querySelector(".model").textContent = car.model;
+              $template.querySelector(".cost").textContent = car.cost;
+              $template.querySelector(".edit").dataset.id = car.id;
+              $template.querySelector(".delete").dataset.id = car.id;
+
+              let $clone = D.importNode($template, true);
+              $fragment.appendChild($clone);
+            });
+            $table.appendChild($fragment);
+          },
+          error: (error) => {
+            $table.insertAdjacentHTML("afterend", `<p><b>${error}</b></p>`);
+          },
+        });
+      }
+
+      function postCars() {
+        $form.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          ajax({
+            method: "POST",
+            url: "http://localhost:3000/porsche",
+            success: (car) => location.reload(),
+            error: (error) => {
+              $table.insertAdjacentHTML("afterend", `<p><b>${error}</b></p>`);
+            },
+            data: {
+              model: $form.model.value,
+              cost: $form.cost.value,
+            },
+          });
+        });
       }
 
       function putCar({ id, model, cost }) {
@@ -152,13 +163,9 @@
         });
       }
 
-      $form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        postCars($form.model.value, $form.cost.value);
-      });
-
       D.addEventListener("DOMContentLoaded", () => {
         getCars();
+        postCars();
         editCarButton();
         deleteCarButton();
       });
