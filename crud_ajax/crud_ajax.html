@@ -125,20 +125,26 @@
       }
 
       function putCar({ id, model, cost }) {
-        const xhr = new XMLHttpRequest(),
-          data = JSON.stringify({ id, model, cost });
-
-        xhr.open("PUT", `http://localhost:3000/porsche/${id}`);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(data);
+       ajax({
+         method: "PUT",
+         url: `http://localhost:3000/porsche/${id}`,
+         success: (car) => location.reload(),
+         error: (error) => {
+          $table.insertAdjacentHTML("afterend", `<p><b>${error}</b></p>`);
+         },
+         data: {
+           model,
+           cost
+         }
+       })
       }
 
       function editCarButton() {
         let data;
         D.addEventListener("click", (e) => {
           if (e.target.matches(".edit") || e.target.matches(".edit *")) {
-            let data = {
-              id: e.target.value || e.target.parentElement.value,
+            data = {
+              id: e.target.dataset.id || e.target.parentElement.dataset.id,
               model: prompt("Escribe el modelo: "),
               cost: prompt("Escribe el costo: "),
             };
