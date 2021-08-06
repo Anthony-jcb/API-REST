@@ -154,16 +154,21 @@
       }
 
       function deleteCar({ id }) {
-        const xhr = new XMLHttpRequest();
-        console.log(id);
-        xhr.open("DELETE", `http://localhost:3000/porsche/${id}`);
-        xhr.send();
+        ajax({
+          method: "DELETE",
+          url: `http://localhost:3000/porsche/${id}`,
+          succes: window.location.reload(),
+          error: (err) => {
+            $table.insertAdjacentHTML("afterend", `<p><b>${error}</b></p>`);
+          }
+        })
       }
 
       function deleteCarButton() {
+        let data;
         D.addEventListener("click", (e) => {
           if (e.target.matches(".delete") || e.target.matches(".delete *")) {
-            let data = { id: e.target.value || e.target.parentElement.value };
+            data = { id: e.target.dataset.id || e.target.parentElement.dataset.id };
             deleteCar(data);
           }
         });
