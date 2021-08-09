@@ -5,47 +5,30 @@ const D = document,
   $template = D.getElementById("crud_template").content,
   $fragment = document.createDocumentFragment();
 
-
-async function ajax(options) {
-  const { method, url, data, success, error } = options;
+async function getCars() {
   try {
-    const request = new Request(
-      url,
-      {
-        method: method || 'GET',
-        body: JSON.stringify(data),
-        headers: { 'Content-Type': 'application/json' },
-      })
-
-    let res = await fetch(request);
-    let json = await res.json();
+    let options = { method: 'GET', headers: { 'Content-Type': 'application/json' } }
+    let res = await fetch("http://localhost:3000/lamborghini", options);
+    let result = await res.json();
 
     if (!res.ok) throw { status: res.status, statusText: res.statusText }
-    success(json);
+
+    result.forEach((car) => {
+      $template.querySelector(".model").textContent = car.model;
+      $template.querySelector(".cost").textContent = car.cost;
+      $template.querySelector(".edit").dataset.id = car.id;
+      $template.querySelector(".delete").dataset.id = car.id;
+
+      let $clone = D.importNode($template, true);
+      $fragment.appendChild($clone);
+    });
+    $table.appendChild($fragment);
   } catch (err) {
-    error(`Error ${err.status} ${err.statusText}`);
+    let message = err.statusText || "Ocurró un error";
+    $table.insertAdjacentHTML("beforeend",
+      `<tr><td><strong>Error ${err.status, message}</strong></td></tr>`
+    );
   }
-}
-
-function getCars() {
-  ajax({
-    url: 'http://localhost:3000/lamborghini',
-    success: (cars) => {
-      cars.forEach((car) => {
-        $template.querySelector(".model").textContent = car.model;
-        $template.querySelector(".cost").textContent = car.cost;
-        $template.querySelector(".edit").dataset.id = car.id;
-        $template.querySelector(".delete").dataset.id = car.id;
-
-        let $clone = D.importNode($template, true);
-        $fragment.appendChild($clone);
-      });
-      $table.appendChild($fragment);
-    },
-    error: (error) => {
-      $table.insertAdjacentHTML("afterend", `<p><b>${error}</b></p>`);
-    }
-  })
 }
 
 D.addEventListener('DOMContentLoaded', () => {
