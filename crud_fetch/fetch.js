@@ -7,9 +7,9 @@ const D = document,
 
 async function getCars() {
   try {
-    let options = { method: 'GET', headers: { 'Content-Type': 'application/json' } }
-    let res = await fetch("http://localhost:3000/lamborghini", options);
-    let result = await res.json();
+    let options = { method: 'GET', headers: { 'Content-Type': 'application/json' } },
+      res = await fetch("http://localhost:3000/lamborghini", options),
+      result = await res.json();
 
     if (!res.ok) throw { status: res.status, statusText: res.statusText }
 
@@ -31,6 +31,32 @@ async function getCars() {
   }
 }
 
+function postCars(data) {
+  $form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    try {
+      let options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          model: e.target.model.value,
+          cost: e.target.cost.value
+         })
+      },
+        res = await fetch("http://localhost:3000/lamborghini", options);
+
+      if (!res.ok) throw { status: res.status, statusText: res.statusText }
+      location.reload();
+    } catch (err) {
+      let message = err.statusText || "Ocurró un error";
+      $form.insertAdjacentHTML("beforeend",
+        `<span><strong>Error ${err.status, message}</strong></span>`
+      );
+    }
+  })
+}
+
 D.addEventListener('DOMContentLoaded', () => {
   getCars();
+  postCars();
 })

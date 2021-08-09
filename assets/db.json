@@ -41,6 +41,11 @@
       "model": "Sesto Elemento",
       "cost": 125000,
       "id": 3
+    },
+    {
+      "model": "Aventador",
+      "cost": "600000",
+      "id": 4
     }
   ],
   "mazda": [
