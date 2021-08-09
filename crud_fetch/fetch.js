@@ -31,32 +31,98 @@ async function getCars() {
   }
 }
 
-function postCars(data) {
-  $form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    try {
-      let options = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          model: e.target.model.value,
-          cost: e.target.cost.value
-         })
-      },
-        res = await fetch("http://localhost:3000/lamborghini", options);
+async function postCars(data) {
+  try {
+    let options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    },
+      res = await fetch("http://localhost:3000/lamborghini", options);
 
-      if (!res.ok) throw { status: res.status, statusText: res.statusText }
-      location.reload();
-    } catch (err) {
-      let message = err.statusText || "Ocurró un error";
-      $form.insertAdjacentHTML("beforeend",
-        `<span><strong>Error ${err.status, message}</strong></span>`
-      );
+    if (!res.ok) throw { status: res.status, statusText: res.statusText }
+  } catch (err) {
+    let message = err.statusText || "Ocurró un error";
+    $form.insertAdjacentHTML("beforeend",
+      `<span><strong>Error ${err.status, message}</strong></span>`
+    );
+  }
+}
+
+async function putCars(data) {
+  try {
+    let options = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    },
+      res = await fetch(`http://localhost:3000/lamborghini/${data.id}`, options);
+
+    if (!res.ok) throw { status: res.status, statusText: res.statusText }
+    location.reload();
+  } catch (err) {
+    let message = err.statusText || "Ocurró un error";
+    $table.insertAdjacentHTML("beforeend",
+      `<span><strong>Error ${err.status, message}</strong></span>`
+    );
+  }
+}
+
+function editCarButton() {
+  let data;
+  D.addEventListener("click", (e) => {
+    if (e.target.matches(".edit") || e.target.matches(".edit *")) {
+      data = {
+        id: e.target.dataset.id || e.target.parentElement.dataset.id,
+        model: prompt("Escribe el modelo: "),
+        cost: prompt("Escribe el costo: "),
+      };
+      putCars(data);
     }
-  })
+  });
+}
+
+async function deleteCars(id) {
+  try {
+    let options = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
+    },
+      res = await fetch(`http://localhost:3000/lamborghini/${id}`, options);
+
+    if (!res.ok) throw { status: res.status, statusText: res.statusText }
+    location.reload();
+  } catch (err) {
+    let message = err.statusText || "Ocurró un error";
+    $table.insertAdjacentHTML("beforeend",
+      `<span><strong>Error ${err.status, message}</strong></span>`
+    );
+  }
+}
+
+function deleteCarButton() {
+  let data;
+  D.addEventListener("click", (e) => {
+    if (e.target.matches(".delete") || e.target.matches(".delete *")) {
+      data = e.target.dataset.id || e.target.parentElement.dataset.id;
+      deleteCars(data);
+    }
+  });
 }
 
 D.addEventListener('DOMContentLoaded', () => {
   getCars();
-  postCars();
+  editCarButton();
+  deleteCarButton();
+})
+
+$form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const data = {
+    model: e.target.model.value,
+    cost: e.target.cost.value
+  }
+
+  postCars(data);
 })
