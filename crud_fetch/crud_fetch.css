@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+}
+
+#container_title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.crud {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.crud_table {
+  width: 80vw;
+  text-align: left;
+}
+
+.crud_table th, td {
+  padding: 15px;
+}

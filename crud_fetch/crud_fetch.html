@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./crud_fetch.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined"
+      rel="stylesheet"
+    />
+    <title>API & AJAX</title>
+  </head>
+  <body>
+    <div id="container_title">
+      <span id="title">ASYNC JS & API REST CRUD</span>
+    </div>
+    <section class="crud">
+      <article>
+        <h2 class="crud_title">Add a Porsche</h2>
+        <form class="crud_form">
+          <input type="text" name="model" placeholder="Insert model" required />
+          <br />
+          <input type="text" name="cost" placeholder="Insert cost" required />
+          <br />
+          <input type="submit" value="Add" />
+          <br />
+          <input type="hidden" />
+        </form>
+      </article>
+      <article>
+        <table class="crud_table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Cost</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </article>
+    </section>
+    <template id="crud_template">
+      <tr>
+        <td class="model"></td>
+        <td class="cost"></td>
+        <td>
+          <button class="edit">
+            <span class="material-icons-outlined"> edit </span>
+          </button>
+          <button class="delete">
+            <span class="material-icons-outlined"> close </span>
+          </button>
+        </td>
+      </tr>
+    </template>
+  </body>
+</html>
