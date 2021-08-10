@@ -24,7 +24,7 @@ async function getCars() {
     });
     $table.appendChild($fragment);
   } catch (err) {
-    let message = err.statusText || "Ocurró un error";
+    let message = err.statusText || "Ocurrió un error";
     $table.insertAdjacentHTML("beforeend",
       `<tr><td><strong>Error ${err.status, message}</strong></td></tr>`
     );
@@ -42,7 +42,7 @@ async function postCars(data) {
 
     if (!res.ok) throw { status: res.status, statusText: res.statusText }
   } catch (err) {
-    let message = err.statusText || "Ocurró un error";
+    let message = err.statusText || "Ocurrió un error";
     $form.insertAdjacentHTML("beforeend",
       `<span><strong>Error ${err.status, message}</strong></span>`
     );
@@ -61,7 +61,7 @@ async function putCars(data) {
     if (!res.ok) throw { status: res.status, statusText: res.statusText }
     location.reload();
   } catch (err) {
-    let message = err.statusText || "Ocurró un error";
+    let message = err.statusText || "Ocurrió un error";
     $table.insertAdjacentHTML("beforeend",
       `<span><strong>Error ${err.status, message}</strong></span>`
     );
@@ -93,7 +93,7 @@ async function deleteCars(id) {
     if (!res.ok) throw { status: res.status, statusText: res.statusText }
     location.reload();
   } catch (err) {
-    let message = err.statusText || "Ocurró un error";
+    let message = err.statusText || "Ocurrió un error";
     $table.insertAdjacentHTML("beforeend",
       `<span><strong>Error ${err.status, message}</strong></span>`
     );
