@@ -4,14 +4,16 @@ body {
 }
 
 #container_title {
+  font-size: 2rem;
+  color: rgb(180, 210, 255);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-#title {
+.crud_title {
   font-size: 2rem;
-  font-weight: bold;
+  color: rgb(100, 100, 100);
 }
 
 .crud {
@@ -19,11 +21,78 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
+}
+
+.crud_container {
+  width: 100%;
+  border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.crud_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.crud_form input {
+  width: 18rem;
+  height: 2.5rem;
+  padding-left: 10px;
+  margin-bottom: 0.5rem;
+
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  color: rgb(70, 70, 70);
+
+  outline: none;
+  border: 3px solid transparent;
+  border-bottom: 3px solid rgb(120, 120, 120);
+  background-color: rgb(240, 240, 240);
+  border-radius: 3px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s;
+}
+
+.crud_form input:hover,
+.crud_form input:focus,
+.crud_form input {
+  border-bottom: 3px solid rgb(180, 210, 255);
+  transition: all 0.2s;
+}
+
+.crud_form input::placeholder {
+  color: rgb(182, 182, 182);
+  font-weight: normal;
+}
+
+.crud_form > input:last-of-type  {
+  width: 19rem;
+  height: 2rem;
+  background-color: rgb(240, 240, 240);
+  color: rgb(100, 100, 100);
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s;
+}
+
+.crud_form > input:last-of-type:hover {
+  background-color: rgb(180, 210, 255);
+  transition: all 0.2s;
+}
+
+.crud_form > input:last-of-type:active {
+  background-color: rgb(100, 155, 255);
 }
 
 .crud_table {
   width: 80vw;
-  text-align: left;
+  text-align: center;
 }
 
 .crud_table th, td {
