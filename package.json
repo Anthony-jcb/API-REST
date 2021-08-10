@@ -2,17 +2,12 @@
   "name": "api_rest",
   "version": "1.0.0",
   "description": "JSON SERVER",
-  "main": "main.js",
   "scripts": {
-    "api": "json-server --watch ./assets/db.json",
-    "test": "jest"
+    "api": "json-server --watch ./assets/db.json"
   },
-  "author": "Anthony Cedeño <github: anthony-jcb>",
+  "author": "Anthony Cedeño <github: Anthony-jcb>",
   "license": "ISC",
-  "devDependencies": {
-    "jest": "^27.0.6"
-  },
   "dependencies": {
-    "axios": "^0.21.1"
+    "json-server": "^0.16.3"
   }
 }
